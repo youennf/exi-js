@@ -1,0 +1,193 @@
+{
+  "uris" : [ {
+    "uri" : "",
+    "names" : null
+  }, {
+    "uri" : "http://www.w3.org/XML/1998/namespace",
+    "names" : null
+  }, {
+    "uri" : "http://www.w3.org/2001/XMLSchema-instance",
+    "names" : null
+  }, {
+    "uri" : "http://www.w3.org/2001/XMLSchema",
+    "names" : null
+  }, {
+    "uri" : "test",
+    "names" : [ {
+      "name" : "author",
+      "elementID" : 0
+    }, {
+      "name" : "available",
+      "attributeID" : 4
+    }, {
+      "name" : "book",
+      "elementID" : 1
+    }, {
+      "name" : "born",
+      "elementID" : 2
+    }, {
+      "name" : "character",
+      "elementID" : 3
+    }, {
+      "name" : "dead",
+      "elementID" : 4
+    }, {
+      "name" : "id",
+      "attributeID" : 2
+    }, {
+      "name" : "isbn",
+      "elementID" : 5
+    }, {
+      "name" : "lang",
+      "attributeID" : 3
+    }, {
+      "name" : "library",
+      "elementID" : 6
+    }, {
+      "name" : "name",
+      "elementID" : 7
+    }, {
+      "name" : "qualification",
+      "elementID" : 8
+    }, {
+      "name" : "title",
+      "elementID" : 9
+    } ]
+  } ],
+  "predefinedElementNumber" : 10,
+  "elements" : [ {
+    "name" : "author",
+    "uri" : "test",
+    "grammar" : {
+      "initialChoice" : 1,
+      "start" : {
+        "choices" : [ 1 ],
+        "children" : [ 0 ]
+      },
+      "content" : {
+        "choices" : [ 0, 0, 1, 1, 0 ],
+        "children" : [ 7, 2, 4, -1, -1 ],
+        "next" : [ 1, 2, 4, -1, -1 ]
+      },
+      "xsiTypeNil" : 0
+    }
+  }, {
+    "name" : "book",
+    "uri" : "test",
+    "grammar" : {
+      "initialChoice" : 2,
+      "start" : {
+        "choices" : [ 2, 1 ],
+        "children" : [ 2, 0 ]
+      },
+      "content" : {
+        "choices" : [ 0, 0, 2, 2, 2, 1, 1 ],
+        "children" : [ 5, 9, 0, 3, -1, 3, -1 ],
+        "next" : [ 1, 2, 2, 5, -1, 5, -1 ]
+      },
+      "xsiTypeNil" : 0
+    }
+  }, {
+    "name" : "born",
+    "uri" : "test",
+    "grammar" : {
+      "type" : "exi:date",
+      "xsiTypeNil" : 0
+    }
+  }, {
+    "name" : "character",
+    "uri" : "test",
+    "grammar" : {
+      "initialChoice" : 1,
+      "start" : {
+        "choices" : [ 1 ],
+        "children" : [ 0 ]
+      },
+      "content" : {
+        "choices" : [ 0, 0, 0, 0 ],
+        "children" : [ 7, 2, 8, -1 ],
+        "next" : [ 1, 2, 3, -1 ]
+      },
+      "xsiTypeNil" : 0
+    }
+  }, {
+    "name" : "dead",
+    "uri" : "test",
+    "grammar" : {
+      "type" : "exi:date",
+      "xsiTypeNil" : 0
+    }
+  }, {
+    "name" : "isbn",
+    "uri" : "test",
+    "grammar" : {
+      "type" : "exi:string",
+      "xsiTypeNil" : 2
+    }
+  }, {
+    "name" : "library",
+    "uri" : "test",
+    "grammar" : {
+      "initialChoice" : 0,
+      "content" : {
+        "choices" : [ 0, 1, 1 ],
+        "children" : [ 1, 1, -1 ],
+        "next" : [ 1, 1, -1 ]
+      },
+      "xsiTypeNil" : 0
+    }
+  }, {
+    "name" : "name",
+    "uri" : "test",
+    "grammar" : {
+      "type" : "exi:string",
+      "xsiTypeNil" : 2
+    }
+  }, {
+    "name" : "qualification",
+    "uri" : "test",
+    "grammar" : {
+      "type" : "exi:string",
+      "xsiTypeNil" : 2
+    }
+  }, {
+    "name" : "title",
+    "uri" : "test",
+    "grammar" : {
+      "initialChoice" : 1,
+      "start" : {
+        "choices" : [ 1 ],
+        "children" : [ 1 ]
+      },
+      "content" : {
+        "choices" : [ 0, 0 ],
+        "children" : [ -2, -1 ],
+        "next" : [ 1, -1 ]
+      },
+      "xsiTypeNil" : 0
+    }
+  } ],
+  "grammars" : null,
+  "simpleTypes" : null,
+  "attributes" : [ {
+    "name" : "nil",
+    "uri" : "http://www.w3.org/2001/XMLSchema-instance",
+    "type" : "exi:boolean"
+  }, {
+    "name" : "type",
+    "uri" : "http://www.w3.org/2001/XMLSchema-instance",
+    "type" : "exi:qname"
+  }, {
+    "name" : "id",
+    "uri" : "test",
+    "type" : "exi:string"
+  }, {
+    "name" : "lang",
+    "uri" : "test",
+    "type" : "exi:string"
+  }, {
+    "name" : "available",
+    "uri" : "test",
+    "type" : "exi:boolean"
+  } ]
+}

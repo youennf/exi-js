@@ -1,0 +1,147 @@
+{
+  "uris" : [ {
+    "uri" : "",
+    "names" : [ {
+      "name" : "Weblog",
+      "elementID" : 0
+    }, {
+      "name" : "byteCount"
+    }, {
+      "name" : "dateTime"
+    }, {
+      "name" : "entry"
+    }, {
+      "name" : "host"
+    }, {
+      "name" : "protocol"
+    }, {
+      "name" : "referer"
+    }, {
+      "name" : "reqID"
+    }, {
+      "name" : "reqType"
+    }, {
+      "name" : "resource"
+    }, {
+      "name" : "statusCode"
+    }, {
+      "name" : "userAgent"
+    } ]
+  }, {
+    "uri" : "http://www.w3.org/XML/1998/namespace",
+    "names" : null
+  }, {
+    "uri" : "http://www.w3.org/2001/XMLSchema-instance",
+    "names" : null
+  }, {
+    "uri" : "http://www.w3.org/2001/XMLSchema",
+    "names" : null
+  } ],
+  "predefinedElementNumber" : 1,
+  "elements" : [ {
+    "name" : "Weblog",
+    "uri" : "",
+    "grammar" : {
+      "initialChoice" : 0,
+      "content" : {
+        "choices" : [ 0, 1, 1 ],
+        "children" : [ 1, 1, -1 ],
+        "next" : [ 1, 1, -1 ]
+      },
+      "xsiTypeNil" : 0
+    }
+  }, {
+    "name" : "entry",
+    "uri" : "",
+    "grammar" : {
+      "initialChoice" : 0,
+      "content" : {
+        "choices" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        "children" : [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, -1 ],
+        "next" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -1 ]
+      },
+      "xsiTypeNil" : 0
+    }
+  }, {
+    "name" : "host",
+    "uri" : "",
+    "grammar" : {
+      "type" : "exi:string",
+      "xsiTypeNil" : 2
+    }
+  }, {
+    "name" : "referer",
+    "uri" : "",
+    "grammar" : {
+      "type" : "exi:string",
+      "xsiTypeNil" : 2
+    }
+  }, {
+    "name" : "userAgent",
+    "uri" : "",
+    "grammar" : {
+      "type" : "exi:string",
+      "xsiTypeNil" : 2
+    }
+  }, {
+    "name" : "dateTime",
+    "uri" : "",
+    "grammar" : {
+      "type" : "exi:string",
+      "xsiTypeNil" : 2
+    }
+  }, {
+    "name" : "reqID",
+    "uri" : "",
+    "grammar" : {
+      "type" : "exi:integer",
+      "xsiTypeNil" : 0
+    }
+  }, {
+    "name" : "reqType",
+    "uri" : "",
+    "grammar" : {
+      "type" : "exi:string",
+      "xsiTypeNil" : 2
+    }
+  }, {
+    "name" : "resource",
+    "uri" : "",
+    "grammar" : {
+      "type" : "exi:string",
+      "xsiTypeNil" : 2
+    }
+  }, {
+    "name" : "protocol",
+    "uri" : "",
+    "grammar" : {
+      "type" : "exi:string",
+      "xsiTypeNil" : 2
+    }
+  }, {
+    "name" : "statusCode",
+    "uri" : "",
+    "grammar" : {
+      "type" : "exi:integer_unsigned",
+      "xsiTypeNil" : 2
+    }
+  }, {
+    "name" : "byteCount",
+    "uri" : "",
+    "grammar" : {
+      "type" : "exi:string",
+      "xsiTypeNil" : 2
+    }
+  } ],
+  "grammars" : null,
+  "simpleTypes" : null,
+  "attributes" : [ {
+    "name" : "nil",
+    "uri" : "http://www.w3.org/2001/XMLSchema-instance",
+    "type" : "exi:boolean"
+  }, {
+    "name" : "type",
+    "uri" : "http://www.w3.org/2001/XMLSchema-instance",
+    "type" : "exi:qname"
+  } ]
+}

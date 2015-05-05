@@ -1,0 +1,2 @@
+<?xml version='1.0'?>
+<ns1:a xmlns:ns1="http://uri1"><ns2:b xmlns:ns2="http://uri1"><ns1:c/></ns2:b></ns1:a>

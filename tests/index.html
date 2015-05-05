@@ -1,0 +1,246 @@
+<html>
+<head>
+    <title>EXI Decoder</title>
+
+    <script type="text/javascript" src="../lib/exiDecoder.js"></script>
+
+    <script type="text/javascript">
+
+        String.prototype.replaceAll = function(
+                strTarget, // The substring you want to replace
+                strSubString // The string you want to replace in.
+        ) {
+                var strText = this;
+                var intIndexOfMatch = strText.indexOf(strTarget);
+
+                // Keep looping while an instance of the target string
+                // still exists in the string.
+                while (intIndexOfMatch != -1) {
+                    // Relace out the current instance.
+                    strText = strText.replace(strTarget, strSubString)
+
+                    // Get the index of any next matching substring.
+                    intIndexOfMatch = strText.indexOf(strTarget);
+                }
+
+                // Return the updated string with ALL the target strings
+                // replaced out with the new substring.
+                return (strText);
+            }
+            
+        function addJSON(path,json,xml,errorId) {
+            var pre = document.getElementById("pre");
+            if (xml.length > 500) {
+                xml = xml.substring(0, 500);
+            }
+            pre.innerHTML = "state: " + errorId + "<br/>" + path + "<br/>" + json.replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<br/><br/>expected xml: <br/>" + xml.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+        }
+
+        function getCheckedValue(radioObj) {
+            if (!radioObj)
+                return "";
+            var radioLength = radioObj.length;
+            if (radioLength == undefined)
+                if (radioObj.checked)
+                return radioObj.value;
+            else
+                return "";
+            for (var i = 0; i < radioLength; i++) {
+                if (radioObj[i].checked) {
+                    return radioObj[i].value;
+                }
+            }
+            return "";
+        }
+    </script>
+
+    <script type="text/javascript">
+        var tests = [
+            { "baseUrl": "streams/level-0a/", "mode": "ba", "fidelity":[true,true,true],"url": ["test-01", "test-02", "test-03", "test-04", "test-05", "test-06", "test-07", "test-08", "test-09", "test-10", "test-11", "test-12"] },
+            { "baseUrl": "streams/level-1a/", "mode": "ba", "fidelity": [true, true, true], "url": ["test-01", "test-02", "test-03", "test-04", "test-05", "test-06", "test-07", "test-08", "test-09", "test-10", "test-11", "test-12"] },
+            { "baseUrl": "streams/EXI-attribute/", "mode": "pre", "fidelity": [true, true, true], "url": ["AllocationInstruction", "AllocationInstructionAck", "AllocationReportAck", "AllocRpt", "castaway", "chaals", "FIXMLNewOrder", "kjetil", "libby", "pepl"] },
+        ];
+
+        function fillTests() {
+            var data = "";
+            for (var cptr = 0; cptr < tests.length; cptr++) {
+                var test = tests[cptr];
+                data += "<p>" + test.baseUrl + "<ol>";
+                for (var idx = 0; idx < test.url.length; idx++) {
+                    var path = test.baseUrl + test.url[idx];
+                    data += "<li>";
+                    data += "<a href='" + path + "' onclick='test_profile_exi(\"" + path + "\",\"" + test.mode + "\",[" + test.fidelity + "]);return false;'>" + test.url[idx] + " </a>";
+                    data += "</li>";
+                }
+                data += "</ol></p>";
+            }
+            document.getElementById("tests").innerHTML = data;
+        }
+    </script>
+    <script type="text/javascript">
+        function getSchemaKnowledge(path) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', path, false);
+            xhr.send();
+            return JSON.parse(xhr.responseText);
+        }
+
+        function getEXI(path,callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', path, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function (oEvent) {
+				var arrayBuffer = xhr.response;
+				if (arrayBuffer) {
+					var byteArray = new Uint8Array(arrayBuffer);
+					callback(byteArray);
+				}
+			};
+			xhr.send();
+        }
+        function getXML(path) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', path, false);
+            xhr.send();
+            return xhr.responseText;
+        }
+        function setEXIMode(decoder,mode) {
+            if (mode == "ba") {
+                decoder.setByteAligned();
+            }
+            else if (mode == "bp") {
+                decoder.setBitPacked();
+            }
+            else if (mode == "pre") {
+                decoder.setPrecompression();
+            }
+        }
+        function decode(params) {
+            /* params =
+            {"mode": "ba|bp|pre",
+            "stream": "",
+            "schema": "",
+            "fidelity": [,,],
+            "isStrict": true|false
+            }
+            */
+            var mode = params.mode;
+            getEXI(params.stream, function(data) {
+				var knowledge = params.schema != null ? getSchemaKnowledge(params.schema) : null;
+
+				var decoder = new EXIDecoder(data, knowledge);
+				if (params.fidelity) {
+					decoder.setFidelityOptions(params.fidelity[0], params.fidelity[1], params.fidelity[2]);
+				}
+				setEXIMode(decoder,mode);
+				if (params.isStrict) {
+					decoder.setStrictMode();
+				}
+				else {
+					decoder.setDefaultMode();
+				}
+
+				var node = decoder.decode();
+				var decodedData;
+				if (decoder.isJson) {
+					decodedData = JSON.stringify(node);
+					decodedData = decoder.generateXMLDocument(node);
+				}
+				else {
+					var oSerializer = new XMLSerializer();
+					decodedData = oSerializer.serializeToString(node);
+				}
+				var xml = getXML(params.xml);
+				addJSON(params.xml, decodedData, xml, decoder.getErrorId());
+			});
+        }
+        function createParams(mode, stream, schema, xml, fidelity, isStrict) {
+            return {
+                "mode": mode,
+                "stream": stream,
+                "schema": schema,
+                "xml": xml,
+                "fidelity": !isStrict?fidelity:[false,false,false],
+                "isStrict": isStrict
+            };
+        }
+    </script>
+    <script type="text/javascript">
+        function test_windgrid1() {
+            decode(createParams("pre",
+                                "streams/windgrid/windgrid-jsonout-nons.xml.wsd.pre.exi",
+                                "streams/schemas/Windnons_grammars.json",
+                                "streams/windgrid/windgrid-jsonout-nons.xml",
+                                [true, true, true],
+                                false));
+        }
+        function test_windgrid2() {
+            decode(createParams("pre",
+                                "streams/windgrid/windgrid-jsonout-nons.xml.wss.pre.exi",
+                                "streams/schemas/Windnons_grammars.json",
+                                "streams/windgrid/windgrid-jsonout-nons.xml",
+                                [true, true, true],
+                                true));
+        }
+        function test_weblog1() {
+            decode(createParams("ba",
+                                "streams/deviations/weblog-CM-valid-CH-att-value.xml.wsd.ba.exi",
+                                "streams/schemas/Weblog_grammars.json",
+                                "streams/deviations/weblog-CM-valid-CH-att-value.xml",
+                                [true, true, true],
+                                false));
+        }
+        function test_weblog2() {
+            decode(createParams("ba",
+                                "streams/deviations/weblog-CM-valid-CH-value.xml.wsd.ba.exi",
+                                "streams/schemas/Weblog_grammars.json",
+                                "streams/deviations/weblog-CM-valid-CH-value.xml",
+                                [true, true, true],
+                                false));
+        }
+        function test_deviations() {
+            decode(createParams("ba",
+                                "streams/deviations/deviations1.xml.wsd.ba.exi",
+                                "streams/schemas/Deviations1_grammars.json",
+                                "deviations1.xml",
+                                [false, false, false],
+                                false));
+        }
+		
+        function test_profile_exi(path, mode, fidelity) {
+            var exiFile = path + ".xml.wos."+mode+".exi";
+            var xmlFile = path +".xml";
+            decode(createParams(mode,
+                                exiFile,
+                                null,
+                                xmlFile,
+                                fidelity,
+                                false));
+
+        }
+    </script>
+
+</head>
+<body onload="fillTests()">
+    <div style="width:250; float:left;word-wrap: break-word;">
+		<div>
+			<p>schema tests </p>
+			<ol>
+				<li><a href="#" onclick="test_weblog1();return false;">test weblog1</a></li>
+				<li><a href="#" onclick="test_weblog2();return false;">test weblog2</a></li>
+				<li><a href="#" onclick="test_windgrid1();return false;">test windgrid1 (long)</a></li>
+				<li><a href="#" onclick="test_windgrid2();return false;">test windgrid2 (long)</a></li>
+				<li><a href="#" onclick="test_deviations();return false;">test deviations</a></li>
+			</ol>
+			<p>(note that windgrid tests are long due to string generation)</p>
+		</div>
+        <div id="tests">
+        </div>
+    </div>
+    <div style="float:left; width:500px;word-wrap: break-word;">
+		Handling of namespace may not be well supported in the data print formatting displayed below
+        <p id="pre">
+		</p>
+    </div>
+</body>
+</html>

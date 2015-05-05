@@ -1,0 +1,101 @@
+{
+  "uris" : [ {
+    "uri" : "",
+    "names" : null
+  }, {
+    "uri" : "http://www.w3.org/XML/1998/namespace",
+    "names" : null
+  }, {
+    "uri" : "http://www.w3.org/2001/XMLSchema-instance",
+    "names" : null
+  }, {
+    "uri" : "http://www.w3.org/2001/XMLSchema",
+    "names" : null
+  }, {
+    "uri" : "test",
+    "names" : [ {
+      "name" : "a",
+      "elementID" : 0
+    }, {
+      "name" : "lat",
+      "elementID" : 1
+    }, {
+      "name" : "lon",
+      "elementID" : 2
+    }, {
+      "name" : "o",
+      "elementID" : 3
+    }, {
+      "name" : "whdg",
+      "elementID" : 4
+    }, {
+      "name" : "wspd",
+      "elementID" : 5
+    } ]
+  } ],
+  "predefinedElementNumber" : 6,
+  "elements" : [ {
+    "name" : "a",
+    "uri" : "test",
+    "grammar" : {
+      "initialChoice" : 0,
+      "content" : {
+        "choices" : [ 0, 1, 1 ],
+        "children" : [ 3, 3, -1 ],
+        "next" : [ 1, 1, -1 ]
+      },
+      "xsiTypeNil" : 0
+    }
+  }, {
+    "name" : "lat",
+    "uri" : "test",
+    "grammar" : {
+      "type" : "exi:decimal",
+      "xsiTypeNil" : 2
+    }
+  }, {
+    "name" : "lon",
+    "uri" : "test",
+    "grammar" : {
+      "type" : "exi:decimal",
+      "xsiTypeNil" : 2
+    }
+  }, {
+    "name" : "o",
+    "uri" : "test",
+    "grammar" : {
+      "initialChoice" : 0,
+      "content" : {
+        "choices" : [ 0, 0, 0, 0, 0 ],
+        "children" : [ 1, 2, 5, 4, -1 ],
+        "next" : [ 1, 2, 3, 4, -1 ]
+      },
+      "xsiTypeNil" : 0
+    }
+  }, {
+    "name" : "whdg",
+    "uri" : "test",
+    "grammar" : {
+      "type" : "exi:decimal",
+      "xsiTypeNil" : 2
+    }
+  }, {
+    "name" : "wspd",
+    "uri" : "test",
+    "grammar" : {
+      "type" : "exi:decimal",
+      "xsiTypeNil" : 2
+    }
+  } ],
+  "grammars" : null,
+  "simpleTypes" : null,
+  "attributes" : [ {
+    "name" : "nil",
+    "uri" : "http://www.w3.org/2001/XMLSchema-instance",
+    "type" : "exi:boolean"
+  }, {
+    "name" : "type",
+    "uri" : "http://www.w3.org/2001/XMLSchema-instance",
+    "type" : "exi:qname"
+  } ]
+}

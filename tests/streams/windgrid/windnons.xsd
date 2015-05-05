@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="test" 
+	elementFormDefault="qualified"
+	xmlns:test="test"
+	>
+  <xs:element name="a">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="test:o"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="o">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="test:lat"/>
+        <xs:element ref="test:lon"/>
+        <xs:element ref="test:wspd"/>
+        <xs:element ref="test:whdg"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lat" type="xs:decimal"/>
+  <xs:element name="lon" type="xs:decimal"/>
+  <xs:element name="wspd" type="xs:decimal"/>
+  <xs:element name="whdg" type="xs:decimal"/>
+</xs:schema>

@@ -1,0 +1,42 @@
+            var knowledge = {
+                "predefinedElementNumber": 0,
+                "elements": [
+                    // global elements
+                    { "name": "a", "grammar": { "initialChoice": 0, "content": { "children": [3, 3, -1], "choices": [0, 1, 0], "next": [1, 1, 2]}} },
+                    { "name": "lat", "grammar": { "type": "decimal", "xsitype": true} },
+                    { "name": "lon", "grammar": { "type": "decimal", "xsitype": true} },
+                    { "name": "o", "grammar": { "initialChoice": 0, "content": { "children": [1, 2, 4, 5, -1], "choices": [0, 0, 0, 0, 0], "next": [1, 2, 3, 4, 5]}} },
+                    { "name": "ws", "grammar": { "type": "decimal", "xsitype": true} },
+                    { "name": "sd", "grammar": { "type": "decimal", "xsitype": true} }
+                    // local elements
+                ],
+                "uris": [
+                { "uri": "", "names": [
+                                    { "name": "a", "elementID": 0 }, { "name": "lat", "elementID": 1 }, { "name": "lon", "elementID": 2 },
+                                    { "name": "o", "elementID": 3 }, { "name": "ws", "elementID": 4 }, { "name": "wspd", "elementID": 5}]
+                },
+                { "uri": "http://www.w3.org/XML/1998/namespace", "names": [{ "name": "base", "elementID": -1 }, { "name": "id", "elementID": -1 }, { "name": "lang", "elementID": -1 }, { "name": "space", "elementID": -1}] },
+                { "uri": "http://www.w3.org/2001/XMLSchema-instance", "names": [{ "name": "nil", "elementID": -1, "globalAttributeTypeID": "boolean" }, { "name": "type", "elementID": -1, "globalAttributeTypeID": "qname"}] },
+                // only for schema-informed streams
+                {"uri": "http://www.w3.org/2001/XMLSchema", "names": [{ "name": "ENTITIES", "elementID": -1, "grammarID": 0 }, { "name": "ENTITY", "grammarID": 0 }, { "name": "ENTITY", "grammarID": 0 }, { "name": "ENTITY", "grammarID": 0 },
+                                                                        { "name": "ID", "grammarID": 0 }, { "name": "IDREF", "grammarID": 0 }, { "name": "IDREFS", "grammarID": 0 }, { "name": "NCName", "grammarID": 0 }, { "name": "NMTOKEN", "grammarID": 0 },
+                                                                        { "name": "NMTOKENS", "grammarID": 0 }, { "name": "NOTATION", "grammarID": 0 }, { "name": "Name", "grammarID": 0 }, { "name": "QName", "grammarID": 0 }, { "name": "anySimpleType", "grammarID": 0 },
+                                                                        { "name": "anyType", "grammarID": 1 }, { "name": "anyURI", "grammarID": 0 }, { "name": "base64Binary", "grammarID": 2 }, { "name": "boolean", "grammarID": 3 }, { "name": "byte", "grammarID": 4 },
+                                                                        { "name": "date", "grammarID": 5 }, { "name": "dateTime", "grammarID": 6 }, { "name": "decimal", "grammarID": 7 }, { "name": "double", "grammarID": 8 }, { "name": "duration", "grammarID": 9 },
+                                                                        { "name": "float", "grammarID": 10 }, { "name": "gDay", "grammarID": 11 }, { "name": "gMonth", "grammarID": 12 }, { "name": "gMonthDay", "grammarID": 13 }, { "name": "gYear", "grammarID": 14 },
+                                                                        { "name": "gYearMonth", "grammarID": 15 }, { "name": "hexBinary", "grammarID": 16 }, { "name": "int", "grammarID": 17 }, { "name": "integer", "grammarID": 18 }, { "name": "language", "grammarID": 0 },
+                                                                        { "name": "long", "grammarID": 19 }, { "name": "negativeInteger", "grammarID": 20 }, { "name": "nonNegativeInteger", "grammarID": 21 }, { "name": "nonPositiveInteger", "grammarID": 22 }, { "name": "normalizedString", "grammarID": 0 },
+                                                                        { "name": "positiveInteger", "grammarID": 23 }, { "name": "short", "grammarID": 24 }, { "name": "string", "grammarID": 0 }, { "name": "time", "grammarID": 25 }, { "name": "token", "grammarID": 0 },
+                                                                        { "name": "unsignedByte", "grammarID": 26 }, { "name": "unsignedInt", "grammarID": 27 }, { "name": "unsignedLong", "grammarID": 28 }, { "name": "unsignedShort", "grammarID": 29 }
+                                                                        ]}
+                
+                ],
+                "grammars": [
+                // for xsi:type switch only
+                //0=string 1=urType 2=base64Binary 3= boolean 4= byte 5= date 6=dateTime 7=decimal 8=double 9=duration 10=float 11=gDay 12=gMonth 13=gMonthDay 14=gYear 15=gYearMonth 16=hexBinary 17=int 
+                //18=integer 19=long 20=negativeInteger 21=nonNegativeInteger 22=nonPositiveInteger 23=positiveInteger 24=short 25=time 26=unsignedByte 27=unsignedInt 28=unsignedLong 29=unsignedShort
+                    {"type": "string" }, //0 for string
+                    {"start": { "children": ["at"], "choices": [2], "next": [0] }, "content": { "children": ["se", "ee", "ch"], "choices": [2, 2, 2], "next": [0, 3, 0]}} // 1 for ur-type
+                ],
+                "simpleTypes": {}
+            };
